@@ -84,5 +84,34 @@ func RiakClusterPing() {
 	fmt.Printf("PingCommand success: %v\n", cmd.Success())
 }
 
+//export RiakClusterGet
+func RiakClusterGet(btype, bucket, key string) *C.char {
+	var err error
+	var cmd riak.Command
+
+	builder := riak.NewFetchValueCommandBuilder()
+	cmd, err = builder.WithBucketType(btype).
+		WithBucket(bucket).
+		WithKey(key).
+		Build()
+	if err != nil {
+		ErrExit(err)
+	}
+	if err := cluster.Execute(cmd); err != nil {
+		ErrExit(err)
+	}
+
+	fvc := cmd.(*riak.FetchValueCommand)
+	rsp := fvc.Response
+	if rsp.IsNotFound {
+		return C.CString("")
+	}
+	if len(rsp.Values) == 0 {
+		return C.CString("")
+	}
+	object := rsp.Values[0]
+	return C.CString(string(object.Value))
+}
+
 func main() {
 }

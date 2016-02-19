@@ -11,7 +11,7 @@ int main() {
     GoString key = { "k", 1 };
 
     char* v = RiakClusterGet(btype, bucket, key);
-	printf("Value: %s\n", v);
+    printf("Value: %s\n", v);
     free((void*)v);
 
     RiakClusterStop();

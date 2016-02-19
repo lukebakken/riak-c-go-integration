@@ -12,6 +12,8 @@ Project to demonstrate integrating Riak Go Client and a C executable.
 
 * Riak 2.1.3
 
+* Riak Go Client [`1.6.0`](https://github.com/basho/riak-go-client/releases/tag/v1.6.0)
+
 * C compiler
 
     ```

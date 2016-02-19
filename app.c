@@ -1,6 +1,8 @@
 #include "riak-client.h"
 
 int main() {
-    PrintInt(42);
+    RiakClusterStart();
+    RiakClusterPing();
+    RiakClusterStop();
     return 0;
 }
